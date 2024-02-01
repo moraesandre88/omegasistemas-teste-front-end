@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./StateCard.css";
 
 const StateCard = ({ data }) => {
-  const [uf, setUf] = useState([]);
+  const [uf, setUf] = useState({});
 
   useEffect(() => {
     let mounted = true;
@@ -31,12 +31,26 @@ const StateCard = ({ data }) => {
   }, [data]);
 
   return (
-    <div className="card">
-      <h3>{uf.state}</h3>
-      <p>Casos: {uf.cases}</p>
-      <p>Mortes: {uf.deaths}</p>
-      <p>Suspeitas: {uf.suspects}</p>
-    </div>
+    <>
+      {data ? (
+        <div className="card">
+          <div className="flag-wrapper">
+            <img
+              src={`https://devarthurribeiro.github.io/covid19-brazil-api/static/flags/${data.toUpperCase()}.png`}
+              alt="state-flag"
+              width={"30"}
+              height={"30"}
+            />
+            <h3>{uf.state}</h3>
+          </div>
+          <p>Casos: {uf.cases}</p>
+          <p>Mortes: {uf.deaths}</p>
+          <p>Suspeitas: {uf.suspects}</p>
+        </div>
+      ) : (
+        <h2>Olá, seja bem-vindo(a). Aqui você pode consultar os casos de covid 19 por estado</h2>
+      )}
+    </>
   );
 };
 

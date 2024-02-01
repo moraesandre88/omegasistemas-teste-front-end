@@ -5,8 +5,6 @@ import "./App.css"
 
 function App() {
   const [stateData, setStateData] = useState([]);
-  const [stateName, setStateName] = useState([]);
-  const [stateUf, setStateUf] = useState([])
   const [selectedState, setSelectedState] = useState("")
 
   useEffect(() => {
@@ -34,19 +32,6 @@ function App() {
     };
   }, []);
 
-  useEffect(() => {
-    stateData.map((item) => (
-      setStateName((prev) => [...prev, item.nome])
-    ))
-  }, [stateData]);
-
-  useEffect(() => {
-    stateData.map((item) => (
-      setStateUf((prev) => [...prev, item.sigla])
-    ))
-  }, [stateData]);
-
-  console.log(stateUf)
 
   const handleChange = (ev) => {
     setSelectedState(ev.target.value)
@@ -54,25 +39,22 @@ function App() {
   };
 
   return (
-    <div>
-      <div>
+    <div className="main">
+      <div className="wrapper">
         <h1>Casos de Covid no Brasil</h1>
         <form>
-          <label>Escolha o estado:</label>
+          <label>Escolha o estado: </label>
           <select value={selectedState} onChange={handleChange}>
-            {/* <option value="">Estado...</option> */}
-            {stateName.map((item, index) => (
-              <option value={stateUf[index]} key={index}>{item}</option>
-            ))}
+            <option value="">-</option>
+            {stateData.map((item, index) => (
+              <option value={item.sigla} key={index}>{item.nome}</option>
+            ))};
           </select>
         </form>
       </div>
-      
-      <hr />
       <div className="card-wrapper">
         <StateCard data={selectedState}/>
-      </div>
-      
+      </div>   
     </div>
   );
 }

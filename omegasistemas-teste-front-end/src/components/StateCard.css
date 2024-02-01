@@ -1,6 +1,12 @@
 .card {
-    width: 250px;
-    height: 250px;
+    width: 300px;
+    height: 300px;
     border: 2px solid #000000;
     padding-left: 5px;
+}
+
+.flag-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
