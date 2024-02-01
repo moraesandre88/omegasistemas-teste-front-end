@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import StateCard from "./components/StateCard";
+import GeneralInfo from "./components/GeneralInfo";
 
 import "./App.css"
 
@@ -7,6 +8,7 @@ function App() {
   const [stateData, setStateData] = useState([]);
   const [selectedState, setSelectedState] = useState("")
 
+  {/*API's consumption for generating states name and defining then on stateData variable */}
   useEffect(() => {
     let mounted = true;
     const controller = new AbortController();
@@ -35,7 +37,6 @@ function App() {
 
   const handleChange = (ev) => {
     setSelectedState(ev.target.value)
-    console.log(selectedState);
   };
 
   return (
@@ -53,7 +54,10 @@ function App() {
         </form>
       </div>
       <div className="card-wrapper">
+        {/*Card's component for rendering state's info */}
         <StateCard data={selectedState}/>
+        {/*Component with main infos*/}
+        <GeneralInfo/>
       </div>   
     </div>
   );

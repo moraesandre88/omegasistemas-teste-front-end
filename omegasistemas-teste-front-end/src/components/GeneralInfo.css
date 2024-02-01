@@ -1,0 +1,7 @@
+.main-general {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #000000;
+    padding: 20px;
+}
