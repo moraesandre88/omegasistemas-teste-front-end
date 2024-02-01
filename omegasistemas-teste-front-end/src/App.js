@@ -6,6 +6,7 @@ import "./App.css"
 function App() {
   const [stateData, setStateData] = useState([]);
   const [stateName, setStateName] = useState([]);
+  const [stateUf, setStateUf] = useState([])
   const [selectedState, setSelectedState] = useState("")
 
   useEffect(() => {
@@ -14,9 +15,10 @@ function App() {
     const brStates = async () => {
       try {
         const response = await fetch(
-          "https://servicodados.ibge.gov.br/api/v1/localidades/estados",
+          "https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome",
           {
             method: "GET",
+            signal: controller.signal,
           }
         );
         const responseData = await response.json();
@@ -36,13 +38,21 @@ function App() {
     stateData.map((item) => (
       setStateName((prev) => [...prev, item.nome])
     ))
-  }, [stateData])
+  }, [stateData]);
+
+  useEffect(() => {
+    stateData.map((item) => (
+      setStateUf((prev) => [...prev, item.sigla])
+    ))
+  }, [stateData]);
+
+  console.log(stateUf)
 
   const handleChange = (ev) => {
     setSelectedState(ev.target.value)
-  }
+    console.log(selectedState);
+  };
 
-  console.log(selectedState);
   return (
     <div>
       <div>
@@ -50,8 +60,9 @@ function App() {
         <form>
           <label>Escolha o estado:</label>
           <select value={selectedState} onChange={handleChange}>
+            {/* <option value="">Estado...</option> */}
             {stateName.map((item, index) => (
-              <option value={item} key={index}>{item}</option>
+              <option value={stateUf[index]} key={index}>{item}</option>
             ))}
           </select>
         </form>
@@ -59,9 +70,7 @@ function App() {
       
       <hr />
       <div className="card-wrapper">
-        {stateData.map((item, index) => (
-          <StateCard data={item.sigla} key={index} />
-        ))}
+        <StateCard data={selectedState}/>
       </div>
       
     </div>

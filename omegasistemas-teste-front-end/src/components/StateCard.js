@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import "./StateCard.css";
 
 const StateCard = ({ data }) => {
-  console.log(data.toLowerCase());
   const [uf, setUf] = useState([]);
 
   useEffect(() => {
@@ -15,6 +14,7 @@ const StateCard = ({ data }) => {
           `https://covid19-brazil-api.now.sh/api/report/v1/brazil/uf/${data.toLowerCase()}`,
           {
             method: "GET",
+            signal: controller.signal,
           }
         );
         const responseData = await response.json();
@@ -36,7 +36,6 @@ const StateCard = ({ data }) => {
       <p>Casos: {uf.cases}</p>
       <p>Mortes: {uf.deaths}</p>
       <p>Suspeitas: {uf.suspects}</p>
-      {/* <p>Última consulta: {uf.datetime.split("T")[0]}</p> */}
     </div>
   );
 };
